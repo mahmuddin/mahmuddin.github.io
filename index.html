@@ -597,11 +597,7 @@
     let prog = 0;
     const tick = setInterval(() => { prog = Math.min(prog + Math.random() * 15, 85); pf.style.width = prog + '%'; }, 200);
     try {
-      const res = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: fd
-      });
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
       clearInterval(tick); pf.style.width = '100%'; pl.textContent = 'Berhasil dikirim!';
       if (res.ok) {
         setTimeout(() => {
