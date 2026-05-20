@@ -1,0 +1,566 @@
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  .wrap {
+    max-width: 560px;
+    margin: 2rem auto;
+    padding: 0 1rem
+  }
+
+  .card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem
+  }
+
+  .logo-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-background-info);
+    display: flex;
+    align-items: center;
+    justify-content: center
+  }
+
+  .logo-circle i {
+    font-size: 18px;
+    color: var(--color-text-info)
+  }
+
+  .logo-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary)
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem
+  }
+
+  .field {
+    margin-bottom: 1.25rem
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px
+  }
+
+  .required {
+    color: var(--color-text-danger)
+  }
+
+  input[type=text],
+  input[type=email],
+  select {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-md);
+    border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary)
+  }
+
+  select {
+    cursor: pointer
+  }
+
+  .radio-group {
+    display: flex;
+    gap: 10px
+  }
+
+  .radio-opt {
+    flex: 1;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 10px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-text-primary);
+    transition: background .15s, border-color .15s;
+    user-select: none
+  }
+
+  .radio-opt:hover {
+    background: var(--color-background-secondary)
+  }
+
+  .radio-opt.selected {
+    border-color: var(--color-border-info);
+    background: var(--color-background-info);
+    color: var(--color-text-info)
+  }
+
+  .radio-opt input {
+    display: none
+  }
+
+  .radio-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-border-secondary);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .15s
+  }
+
+  .radio-opt.selected .radio-dot {
+    border-color: var(--color-text-info)
+  }
+
+  .radio-dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-text-info);
+    display: none
+  }
+
+  .radio-opt.selected .radio-dot-inner {
+    display: block
+  }
+
+  .file-zone {
+    border: 0.5px dashed var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background .15s
+  }
+
+  .file-zone:hover {
+    background: var(--color-background-secondary)
+  }
+
+  .file-zone.drag {
+    background: var(--color-background-info);
+    border-color: var(--color-border-info)
+  }
+
+  .file-zone.has-file {
+    background: var(--color-background-success);
+    border-color: var(--color-border-success)
+  }
+
+  .file-zone.error-zone {
+    background: var(--color-background-danger);
+    border-color: var(--color-border-danger)
+  }
+
+  .file-zone i.zone-icon {
+    font-size: 28px;
+    color: var(--color-text-tertiary);
+    display: block;
+    margin-bottom: 8px
+  }
+
+  .file-zone.has-file i.zone-icon {
+    color: var(--color-text-success)
+  }
+
+  .file-zone.error-zone i.zone-icon {
+    color: var(--color-text-danger)
+  }
+
+  .file-hint {
+    font-size: 13px;
+    color: var(--color-text-secondary)
+  }
+
+  .file-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-success);
+    margin-top: 4px
+  }
+
+  .file-size-info {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 2px
+  }
+
+  .file-size-info.over {
+    color: var(--color-text-danger)
+  }
+
+  input[type=file] {
+    display: none
+  }
+
+  .size-limit {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px
+  }
+
+  .error-msg {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-background-danger);
+    border: 0.5px solid var(--color-border-danger);
+    border-radius: var(--border-radius-md);
+    padding: 10px 14px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--color-text-danger)
+  }
+
+  .error-msg.show {
+    display: flex
+  }
+
+  .error-msg i {
+    font-size: 16px;
+    flex-shrink: 0
+  }
+
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem
+  }
+
+  .success-state.show {
+    display: block
+  }
+
+  .success-state i {
+    font-size: 48px;
+    color: var(--color-text-success);
+    display: block;
+    margin-bottom: 1rem
+  }
+
+  .success-state h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary)
+  }
+
+  .success-state p {
+    font-size: 13px;
+    color: var(--color-text-secondary)
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--border-radius-md);
+    border: none;
+    background: var(--color-text-primary);
+    color: var(--color-background-primary);
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: opacity .15s
+  }
+
+  .btn-submit:hover {
+    opacity: 0.85
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed
+  }
+
+  .progress-wrap {
+    display: none;
+    margin-top: 1rem
+  }
+
+  .progress-wrap.show {
+    display: block
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--color-border-tertiary);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 6px
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-text-info);
+    transition: width .3s
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--color-text-secondary)
+  }
+
+  .divider {
+    border: none;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    margin: 1.25rem 0
+  }
+</style>
+
+<div class="wrap">
+  <div class="card" id="form-card">
+    <div class="logo">
+      <div class="logo-circle"><i class="ti ti-briefcase" aria-hidden="true"></i></div>
+      <span class="logo-text">Lamaran Kerja</span>
+    </div>
+    <h2>Upload CV kamu</h2>
+    <p class="subtitle">Isi data di bawah dan upload CV dalam format PDF. Maksimal ukuran file 5 MB.</p>
+
+    <div class="field">
+      <label>Nama lengkap <span class="required">*</span></label>
+      <input type="text" id="f-nama" placeholder="Contoh: Budi Santoso">
+    </div>
+
+    <div class="field">
+      <label>Email <span class="required">*</span></label>
+      <input type="email" id="f-email" placeholder="email@kamu.com">
+    </div>
+
+    <div class="field">
+      <label>Gender <span class="required">*</span></label>
+      <div class="radio-group">
+        <label class="radio-opt" id="opt-male" onclick="selectGender('Male')">
+          <div class="radio-dot">
+            <div class="radio-dot-inner"></div>
+          </div>
+          <i class="ti ti-gender-male" aria-hidden="true"></i> Male
+        </label>
+        <label class="radio-opt" id="opt-female" onclick="selectGender('Female')">
+          <div class="radio-dot">
+            <div class="radio-dot-inner"></div>
+          </div>
+          <i class="ti ti-gender-female" aria-hidden="true"></i> Female
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Posisi yang dilamar <span class="required">*</span></label>
+      <select id="f-posisi">
+        <option value="" disabled selected>Pilih posisi...</option>
+        <option value="UI/UX Designer">UI/UX Designer</option>
+        <option value="Project Admin">Project Admin</option>
+      </select>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field">
+      <label>Upload CV (PDF) <span class="required">*</span></label>
+      <div class="file-zone" id="drop-zone" onclick="document.getElementById('f-file').click()">
+        <i class="ti ti-cloud-upload zone-icon" id="file-icon" aria-hidden="true"></i>
+        <p class="file-hint" id="file-hint">Klik atau drag & drop file PDF di sini</p>
+        <p class="file-name" id="file-name-label" style="display:none"></p>
+        <p class="file-size-info" id="file-size-label" style="display:none"></p>
+      </div>
+      <p class="size-limit"><i class="ti ti-info-circle" aria-hidden="true"></i> Maksimal ukuran file 5 MB, format PDF
+      </p>
+      <input type="file" id="f-file" accept=".pdf,application/pdf">
+
+      <div class="error-msg" id="err-size">
+        <i class="ti ti-alert-circle" aria-hidden="true"></i>
+        <span>File melebihi batas 5 MB. Silakan pilih file yang lebih kecil.</span>
+      </div>
+      <div class="error-msg" id="err-type">
+        <i class="ti ti-alert-circle" aria-hidden="true"></i>
+        <span>File harus berformat PDF. Silakan pilih file PDF yang valid.</span>
+      </div>
+      <div class="error-msg" id="err-required">
+        <i class="ti ti-alert-circle" aria-hidden="true"></i>
+        <span>Mohon lengkapi semua field yang wajib diisi.</span>
+      </div>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <p class="progress-label" id="progress-label">Mengirim data...</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <button class="btn-submit" id="btn-submit" onclick="submitForm()">
+      <i class="ti ti-send" aria-hidden="true"></i> Kirim lamaran
+    </button>
+  </div>
+
+  <div class="success-state" id="success-state">
+    <i class="ti ti-circle-check" aria-hidden="true"></i>
+    <h3>Lamaran berhasil dikirim!</h3>
+    <p>Terima kasih telah mengirimkan lamaran. Tim kami akan meninjau CV kamu dan menghubungi via email.</p>
+  </div>
+</div>
+
+<script>
+  const MAX_SIZE = 5 * 1024 * 1024;
+  const WEBHOOK_URL = 'GANTI_DENGAN_URL_WEBHOOK_N8N_KAMU';
+  let selectedFile = null;
+  let selectedGender = '';
+
+  function selectGender(val) {
+    selectedGender = val;
+    document.getElementById('opt-male').classList.toggle('selected', val === 'Male');
+    document.getElementById('opt-female').classList.toggle('selected', val === 'Female');
+  }
+
+  const dropZone = document.getElementById('drop-zone');
+  const fileInput = document.getElementById('f-file');
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) handleFile(fileInput.files[0]);
+  });
+
+  function formatSize(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  }
+
+  function clearErrors() {
+    ['err-size', 'err-type', 'err-required'].forEach(id => document.getElementById(id).classList.remove('show'));
+  }
+
+  function handleFile(file) {
+    clearErrors();
+    fileInput.value = '';
+    selectedFile = null;
+    dropZone.className = 'file-zone';
+    document.getElementById('file-icon').className = 'ti ti-cloud-upload zone-icon';
+    document.getElementById('file-hint').style.display = '';
+    document.getElementById('file-hint').textContent = 'Klik atau drag & drop file PDF di sini';
+    document.getElementById('file-name-label').style.display = 'none';
+    const sizeLabel = document.getElementById('file-size-label');
+    sizeLabel.style.display = 'none';
+    sizeLabel.className = 'file-size-info';
+
+    if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+      dropZone.classList.add('error-zone');
+      document.getElementById('file-icon').className = 'ti ti-file-x zone-icon';
+      document.getElementById('file-hint').textContent = 'Format tidak didukung. Pilih file PDF.';
+      document.getElementById('err-type').classList.add('show');
+      return;
+    }
+
+    if (file.size > MAX_SIZE) {
+      dropZone.classList.add('error-zone');
+      document.getElementById('file-icon').className = 'ti ti-file-x zone-icon';
+      document.getElementById('file-hint').textContent = 'File terlalu besar. Pilih file lain.';
+      sizeLabel.textContent = formatSize(file.size) + ' / maks. 5 MB';
+      sizeLabel.className = 'file-size-info over';
+      sizeLabel.style.display = 'block';
+      document.getElementById('err-size').classList.add('show');
+      return;
+    }
+
+    selectedFile = file;
+    dropZone.classList.add('has-file');
+    document.getElementById('file-icon').className = 'ti ti-file-check zone-icon';
+    document.getElementById('file-hint').style.display = 'none';
+    const nameLabel = document.getElementById('file-name-label');
+    nameLabel.textContent = file.name;
+    nameLabel.style.display = 'block';
+    sizeLabel.textContent = formatSize(file.size) + ' — siap dikirim';
+    sizeLabel.style.display = 'block';
+  }
+
+  async function submitForm() {
+    clearErrors();
+    const nama = document.getElementById('f-nama').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const posisi = document.getElementById('f-posisi').value;
+
+    if (!nama || !email || !selectedGender || !posisi || !selectedFile) {
+      document.getElementById('err-required').classList.add('show');
+      return;
+    }
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressFill = document.getElementById('progress-fill');
+    const progressLabel = document.getElementById('progress-label');
+    progressWrap.classList.add('show');
+
+    const formData = new FormData();
+    formData.append('nama', nama);
+    formData.append('email', email);
+    formData.append('gender', selectedGender);
+    formData.append('posisi', posisi);
+    formData.append('cv', selectedFile, selectedFile.name);
+
+    let prog = 0;
+    const ticker = setInterval(() => {
+      prog = Math.min(prog + Math.random() * 15, 85);
+      progressFill.style.width = prog + '%';
+    }, 200);
+
+    try {
+      const res = await fetch(WEBHOOK_URL, { method: 'POST', body: formData });
+      clearInterval(ticker);
+      progressFill.style.width = '100%';
+      progressLabel.textContent = 'Berhasil dikirim!';
+      if (res.ok) {
+        setTimeout(() => {
+          document.getElementById('form-card').style.display = 'none';
+          document.getElementById('success-state').classList.add('show');
+        }, 600);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch (err) {
+      clearInterval(ticker);
+      progressWrap.classList.remove('show');
+      btn.disabled = false;
+      alert('Terjadi kesalahan saat mengirim. Pastikan koneksi internet kamu stabil dan coba lagi.');
+    }
+  }
+</script>
